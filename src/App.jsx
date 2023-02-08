@@ -7,10 +7,20 @@ function App() {
   const [pacientes, setPacientes] = useState([]);
   const [paciente, setPaciente] = useState({});
 
+  useEffect(() => {
+    const obtenerLS = () => {
+      const pacientesLS = JSON.parse(localStorage.getItem('pacientes')) || [];
+      setPacientes(pacientesLS);
+    };
+    obtenerLS();
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('pacientes', JSON.stringify(pacientes));
+  }, [pacientes]);
+
   const eliminarPaciente = (id) => {
-    const confirmar = confirm(
-      "¿Estas seguro de eliminar este paciente?"
-    );
+    const confirmar = confirm("¿Estas seguro de eliminar este paciente?");
     if (!confirmar) return;
     const pacientesFiltrados = pacientes.filter(
       (paciente) => paciente.id !== id
