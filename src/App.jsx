@@ -6,8 +6,12 @@ import ListadoPacientes from "./components/ListadoPacientes";
 function App() {
   const [pacientes, setPacientes] = useState([]);
   const [paciente, setPaciente] = useState({});
-  
+
   const eliminarPaciente = (id) => {
+    const confirmar = confirm(
+      "¿Estas seguro de eliminar este paciente?"
+    );
+    if (!confirmar) return;
     const pacientesFiltrados = pacientes.filter(
       (paciente) => paciente.id !== id
     );
